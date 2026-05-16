@@ -1,0 +1,133 @@
+/* ===== RESET ===== */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/* ===== GERAL ===== */
+body {
+    background-color: rgba(255, 255, 255, 0.35)
+    font-family: Georgia, serif;
+}
+
+/* ===== HEADER ===== */
+.header_style {
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-around;
+    width: 100%;
+    height: 110px;
+    background-color: #1a0000;
+    border-bottom: 3px solid #cc0000;
+}
+
+/* ===== LOGO ===== */
+.div_logo {
+    font-size: 40px;
+    color: #cc2200;
+    font-weight: bold;
+    letter-spacing: 3px;
+    text-shadow: 3px 3px 6px #000;
+}
+
+/* ===== BOTÕES DE NAVEGAÇÃO ===== */
+.botao_nav {
+    background-color: #3a0000;
+    color: #d4a070;
+    padding: 10px 22px;
+    border-radius: 6px;
+    border: 1px solid #8b0000;
+    font-family: Georgia, serif;
+    font-size: 15px;
+    letter-spacing: 1px;
+    cursor: pointer;
+    transition: background-color 0.3s, color 0.3s;
+}
+
+.botao_nav:hover {
+    background-color: #8b0000;
+    color: #ffffff;
+}
+
+/* ===== SEÇÃO CAPA ===== */
+.overflow {
+    width: 100%;
+    height: 900px;
+    background-image: url(../Arquivos_Imagem/bg.png);
+    background-size: 900px 900px;
+    background-position: center;
+    background-repeat: no-repeat;
+}
+
+.div_centralizar_titulo {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.35);
+}
+
+.texto_titulo {
+    font-size: 60px;
+    color: #431306;
+}
+
+.titulo_enfase {
+    font-size: 110px;
+    color: #cc2200;
+    text-shadow: 6px 6px 0px #1a0000;
+}
+
+/* ===== TRANSIÇÃO CAPA → TEXTO ===== */
+.transicao {
+    width: 100%;
+    height: 100px;
+    background: linear-gradient(to bottom, rgba(0, 0, 0, 0.35), #3a3a3a);
+}
+
+/* ===== SEÇÃO DE TEXTO ===== */
+.div_centralizar {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+    padding: 60px 20px;
+    background-color: #3a3a3a;
+}
+
+.texto_comum {
+    font-size: 20px;
+    color: #f0d5c0;
+    text-align: center;
+    max-width: 860px;
+    line-height: 1.9;
+}
+
+.lista_jogos {
+    list-style: none;
+    margin-top: 30px;
+    text-align: center;
+    font-size: 20px;
+    color: #f0d5c0;
+    line-height: 2.2;
+}
+
+.lista_jogos li::before {
+    content: "— ";
+    color: #cc2200;
+}
+
+.secao_titulo {
+    font-size: 55px;
+    color: #cc2200;
+    margin-top: 60px;
+    text-shadow: 3px 3px 0px #1a0000;
+    text-align: center;
+}
