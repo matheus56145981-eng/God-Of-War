@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="../CSS/login.css">
+    <title>God Of War — Login</title>
+</head>
+<body>
+
+    <!-- HEADER -->
+    <header class="header_style">
+        <div style="display:flex; gap:12px; align-items:center;">
+            <a href="cadastro.html" class="botao_nav">Cadastro</a>
+            <button class="botao_nav" onclick="window.scrollTo({top:0,behavior:'smooth'})">Início</button>
+        </div>
+
+        <div class="div_logo">God Of War</div>
+
+        <div class="nav-item">
+            <button class="botao_nav">Jogos ▾</button>
+            <div class="dropdown">
+                <a class="dropdown-item" href="#">God of War: Ascension</a>
+                <a class="dropdown-item" href="#">God of War: Chains of Olympus</a>
+                <a class="dropdown-item" href="#">God of War (O Primeiro Jogo)</a>
+                <a class="dropdown-item" href="#">God of War: Ghost of Sparta</a>
+                <a class="dropdown-item" href="#">God of War: Betrayal</a>
+                <a class="dropdown-item" href="#">God of War II</a>
+                <a class="dropdown-item" href="#">God of War III</a>
+            </div>
+        </div>
+    </header>
+
+    <div class="pagina-wrapper">
+
+        <!-- LOGIN -->
+        <div class="login-box">
+            <div class="login-icone">⚔️</div>
+            <div class="login-titulo">Login</div>
+            <div class="login-subtitulo">Acesse conteúdo exclusivo</div>
+
+            <div class="campo-grupo">
+                <label for="email">E-mail</label>
+                <input type="email" id="email" placeholder="seu@email.com">
+            </div>
+
+            <div class="campo-grupo">
+                <label for="senha">Senha</label>
+                <input type="password" id="senha" placeholder="••••••••">
+            </div>
+
+            <button class="btn-login" onclick="fazerLogin()">Entrar no Olimpo</button>
+
+            <div class="divisor">— ou —</div>
+
+            <div class="link-cadastro">
+                Novo guerreiro? <a href="cadastro.html">Criar conta</a>
+            </div>
+        </div>
+
+        <!-- QUIZ -->
+        <div class="quiz-wrapper">
+            <div class="quiz-cabecalho">
+                <div class="quiz-barra-lateral"></div>
+                <div>
+                    <div class="quiz-titulo">Quiz — Saga Grega</div>
+                    <div class="quiz-subtitulo">Prove que você conhece a história de Kratos</div>
+                </div>
+            </div>
+
+            <div class="barra-progresso">
+                <div class="barra-fill" id="barra-progresso"></div>
+            </div>
+
+            <div id="container-perguntas"></div>
+
+        </div>
+    </div>
+
+    <script>
+        const perguntas = [
+            {
+                texto: "Quem é o pai de Kratos na franquia?",
+                opcoes: ["Poseidon", "Hades", "Zeus", "Ares"],
+                correta: 2,
+                explicacao: "Zeus é o pai de Kratos. Filho de uma mortal chamada Calisto, Kratos descobriu sua origem divina ao longo da saga."
+            },
+            {
+                texto: "Qual é o nome das lâminas duplas dadas a Kratos por Ares no primeiro jogo?",
+                opcoes: ["Lâminas do Exilio", "Lâminas do Caos", "Lâminas de Athena", "Garras de Hades"],
+                correta: 1,
+                explicacao: "As Lâminas do Caos foram entregues por Ares quando Kratos ofereceu sua alma em troca de poder para vencer uma batalha impossível."
+            },
+            {
+                texto: "De acordo com o enredo de God of War II, qual Titã carrega os pilares do mundo em suas costas?",
+                opcoes: ["Cronos", "Atlas", "Gaia", "Tifão"],
+                correta: 1,
+                explicacao: "Atlas foi condenado pelos deuses a carregar os pilares do mundo eternamente como punição."
+            },
+            {
+                texto: "Qual divindade da sabedoria guia Kratos durante sua jornada de vingança contra o Olimpo?",
+                opcoes: ["Hera", "Afrodite", "Ártemis", "Atena"],
+                correta: 3,
+                explicacao: "Atena, deusa da sabedoria, orienta Kratos ao longo da saga, mesmo que seus interesses nem sempre coincidam com os dele."
+            },
+            {
+                texto: "Qual desses deuses foi o primeiro grande antagonista que Kratos assassinou no jogo original de 2005?",
+                opcoes: ["Ares", "Tânatos", "Hélio", "Hermes"],
+                correta: 0,
+                explicacao: "Ares foi o grande vilão do primeiro God of War (2005). Kratos o matou para cumprir a promessa dos deuses e buscar perdão."
+            },
+            {
+                texto: "Como Kratos escapou do submundo após ser traído e morto por Zeus no início de God of War II?",
+                opcoes: [
+                    "Ele usou a Caixa de Pandora",
+                    "Ele fez um acordo com Hades",
+                    "Ele foi resgatado e guiado pelo Titã Gaia",
+                    "Ele derrotou as três Górgonas"
+                ],
+                correta: 2,
+                explicacao: "A Titã Gaia resgatou Kratos do submundo e o guiou até as Irmãs do Destino para alterar seu passado e vingar-se de Zeus."
+            },
+            {
+                texto: "Qual é o nome do irmão de Kratos, levado pelos deuses na infância por ter marcas consideradas uma maldição?",
+                opcoes: ["Deimos", "Hércules", "Ceryx", "Perseu"],
+                correta: 0,
+                explicacao: "Deimos foi capturado pelos deuses quando criança por causa de uma profecia: um guerreiro marcado destruiria o Olimpo."
+            }
+        ];
+
+        const atual = 0;
+        const pontos = 0;
+        const respondeu = false;
+        const LETRAS = ['A', 'B', 'C', 'D'];
+
+        function renderizar() {
+            const cont = document.getElementById('container-perguntas');
+            cont.innerHTML = '';
+            perguntas.forEach((p, i) => {
+                const opcoesHTML = p.opcoes.map((op, j) => `
+                    <button class="opcao" id="op-${i}-${j}" onclick="responder(${i}, ${j})">
+                        <span class="letra">${LETRAS[j]})</span> ${op}
+                    </button>
+                `).join('');
+
+                cont.innerHTML += `
+                    <div class="pergunta-card ${i === 0 ? 'ativa' : ''}" id="card-${i}">
+                        <div class="num-pergunta">Pergunta ${i + 1} de ${perguntas.length}</div>
+                        <div class="texto-pergunta">${p.texto}</div>
+                        <div class="opcoes">${opcoesHTML}</div>
+                        <div class="feedback-resposta" id="fb-${i}"></div>
+                        <button class="btn-proxima" id="prox-${i}" onclick="proxima(${i})">
+                            ${i < perguntas.length - 1 ? 'Próxima Pergunta →' : 'Ver Resultado →'}
+                        </button>
+                    </div>
+                `;
+            });
+        }
+
+        function responder(idxP, idxOp) {
+            if (respondeu) return;
+            respondeu = true;
+
+            const p = perguntas[idxP];
+            const fb = document.getElementById(`fb-${idxP}`);
+
+            p.opcoes.forEach((_, j) => {
+                const btn = document.getElementById(`op-${idxP}-${j}`);
+                btn.disabled = true;
+                if (j === p.correta) btn.classList.add('correta');
+                else if (j === idxOp) btn.classList.add('errada');
+            });
+
+            if (idxOp === p.correta) {
+                pontos++;
+                fb.className = 'feedback-resposta certo show';
+                fb.innerHTML = `✓ Correto! ${p.explicacao}`;
+            } else {
+                fb.className = 'feedback-resposta errado show';
+                fb.innerHTML = `✗ Incorreto. ${p.explicacao}`;
+            }
+
+            document.getElementById(`prox-${idxP}`).classList.add('show');
+            atualizarBarra();
+        }
+
+        function proxima(idx) {
+            document.getElementById(`card-${idx}`).classList.remove('ativa');
+            respondeu = false;
+            atual++;
+            if (atual < perguntas.length) {
+                document.getElementById(`card-${atual}`).classList.add('ativa');
+                atualizarBarra();
+            } else {
+                mostrarResultado();
+            }
+        }
+
+        function atualizarBarra() {
+            const pct = ((atual + (respondeu ? 1 : 0)) / perguntas.length) * 100;
+            document.getElementById('barra-progresso').style.width = pct + '%';
+        }
+
+        function mostrarResultado() {
+            document.querySelectorAll('.pergunta-card').forEach(c => c.style.display = 'none');
+            document.getElementById('barra-progresso').style.width = '100%';
+            document.getElementById('resultado').classList.add('show');
+
+            document.getElementById('res-placar').textContent = `${pontos}/7`;
+
+            const msgs = [
+                { min: 7, emoji: '🏆', txt: 'Perfeito! Você conhece a saga como o próprio Fantasma de Esparta. Nenhum segredo do Olimpo lhe escapa!' },
+                { min: 5, emoji: '⚔️', txt: 'Muito bem! Você domina boa parte da história de Kratos. Digno de um guerreiro espartano!' },
+                { min: 3, emoji: '🛡️', txt: 'Razoável. Você conhece o básico, mas ainda há muito para aprender sobre a saga grega.' },
+                { min: 0, emoji: '💀', txt: 'Kratos não ficaria orgulhoso... Revise a história da saga e tente novamente, guerreiro.' }
+            ];
+
+            const resultado = msgs.find(m => pontos >= m.min);
+            document.getElementById('res-emoji').textContent = resultado.emoji;
+            document.getElementById('res-msg').textContent = resultado.txt;
+        }
+
+        function reiniciar() {
+            atual = 0; pontos = 0; respondeu = false;
+            document.getElementById('resultado').classList.remove('show');
+            document.getElementById('barra-progresso').style.width = '0%';
+            renderizar();
+        }
+
+        function fazerLogin() {
+            const e = document.getElementById('email').value;
+            const s = document.getElementById('senha').value;
+            if (!e || !s) { alert('Preencha todos os campos para entrar.'); return; }
+            alert('Login realizado! Bem-vindo ao Olimpo, guerreiro.');
+        }
+
+        renderizar();
+    </script>
+</body>
+</html>

@@ -12,19 +12,24 @@
 
     <!-- HEADER -->
     <header class="header_style">
-        <button class="botao_nav" onclick="window.scrollTo({top: 0, behavior: 'smooth'})">Início</button>
+        <div>
+            <a href="cadastro.html" class="botao_nav" style="transform: none;">Cadastro</a>
+            <button class="botao_nav" onclick="window.scrollTo({top: 0, behavior: 'smooth'})">Início</button>
+        </div>
         <div class="div_logo">God Of War</div>
+        <div>
 
-        <div class="nav-item">
-            <button class="botao_nav">Jogos ▾</button>
-            <div class="dropdown">
-                <a class="dropdown-item" href="#ascension">God of War: Ascension</a>
-                <a class="dropdown-item" href="#chains">God of War: Chains of Olympus</a>
-                <a class="dropdown-item" href="#gow1">God of War (O Primeiro Jogo)</a>
-                <a class="dropdown-item" href="#ghost">God of War: Ghost of Sparta</a>
-                <a class="dropdown-item" href="#betrayal">God of War: Betrayal</a>
-                <a class="dropdown-item" href="#gow2">God of War II</a>
-                <a class="dropdown-item" href="#gow3">God of War III</a>
+            <div class="nav-item">
+                <button class="botao_nav">Jogos ▾</button>
+                <div class="dropdown">
+                    <a class="dropdown-item" href="#ascension">God of War: Ascension</a>
+                    <a class="dropdown-item" href="#chains">God of War: Chains of Olympus</a>
+                    <a class="dropdown-item" href="#gow1">God of War (O Primeiro Jogo)</a>
+                    <a class="dropdown-item" href="#ghost">God of War: Ghost of Sparta</a>
+                    <a class="dropdown-item" href="#betrayal">God of War: Betrayal</a>
+                    <a class="dropdown-item" href="#gow2">God of War II</a>
+                    <a class="dropdown-item" href="#gow3">God of War III</a>
+                </div>
             </div>
         </div>
     </header>
@@ -134,15 +139,13 @@
             Consumido pela culpa após assassinar sua própria família sob influência de Ares, ele vive atormentado por
             lembranças que o perseguem sem descanso. Acorrentado por seus pecados e por juramentos quebrados, Kratos
             vaga sozinho tentando encontrar uma forma de se libertar da dor que carrega na alma.
-            <br><br>
-            Tudo muda quando as terríveis Fúrias passam a caçá-lo impiedosamente. Criaturas cruéis e manipuladoras,
+                Tudo muda quando as terríveis Fúrias passam a caçá-lo impiedosamente. Criaturas cruéis e manipuladoras,
             elas desejam transformar Kratos novamente em um servo obediente dos deuses. Mas, pela primeira vez, o
             guerreiro decide enfrentar não apenas monstros, mas também o próprio passado.
             <br><br>
             Durante sua jornada, Kratos atravessa prisões gigantescas, mares tempestuosos e templos esquecidos enquanto
             revive memórias dolorosas de sua antiga vida. Cada batalha parece arrancar um pedaço de sua humanidade,
             tornando-o cada vez mais frio e brutal.
-            <br><br>
             Ascension mostra um Kratos diferente daquele que muitos conheceram nos jogos posteriores. Aqui ainda existe
             sofrimento, dúvida e até arrependimento dentro dele. É justamente isso que torna sua história tão pesada:
             ver um homem destruído tentando desesperadamente escapar das correntes que ele mesmo ajudou a criar.
@@ -229,8 +232,8 @@
             e da influência espartana, Zeus decide traí-lo.
             <br><br>
             Durante uma batalha, Zeus retira os poderes divinos de Kratos e o mata, enviando-o ao submundo. Porém,
-            recusando aceitar seu destino, Kratos consegue retornar e passa a buscar uma maneira de alterar o próprio
-            tempo para impedir sua traição e destruir Zeus.
+            recusando aceitar seu destino, Kratos com a intervenção de Gaia, consegue retornar do submundo
+             e passa a buscar uma maneira de alterar o próprio tempo para impedir sua traição e destruir Zeus.
             <br><br>
             Ao descobrir que Zeus é seu pai e o verdadeiro responsável por grande parte de seu sofrimento, o ódio de
             Kratos finalmente ultrapassa qualquer limite. O guerreiro deixa de buscar apenas vingança pessoal e passa
@@ -258,12 +261,13 @@
         <div class="texto_comum">
             <br><br>
             O que achou da história do Fantasma de Esparta? <br>
-            Se gostou do conteudo, faça login para ter acesso a mais conteudos como este</div>
+            Se gostou do conteudo, faça login para ter acesso a mais conteudos como este
+        </div>
     </div>
 
     <script>
         document.querySelectorAll('a.dropdown-item[href^="#"]').forEach(link => {
-            link.addEventListener('click', function(e) {
+            link.addEventListener('click', function (e) {
                 e.preventDefault();
                 const id = this.getAttribute('href').slice(1);
                 const target = document.getElementById(id);
@@ -277,4 +281,5 @@
     </script>
 
 </body>
+
 </html>
