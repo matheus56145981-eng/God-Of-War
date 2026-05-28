@@ -1,27 +1,28 @@
 <!DOCTYPE html>
 <html lang="pt-br">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="../CSS/style.css">
     <title>God Of War</title>
 </head>
-
-<body class="background">
+<body>
 
     <!-- HEADER -->
     <header class="header_style">
-        <div>
-            <a href="cadastro.html" class="botao_nav" style="transform: none;">Cadastro</a>
-            <button class="botao_nav" onclick="window.scrollTo({top: 0, behavior: 'smooth'})">Início</button>
+        <div style="display:flex; gap:12px; align-items:center;">
+            <a href="cadastro.html" class="botao_nav">Cadastro</a>
+            <a href="login.html" class="botao_nav">Login</a>
         </div>
-        <div class="div_logo">God Of War</div>
-        <div>
 
+        <div class="div_logo">God Of War</div>
+
+        <div style="display: flex; align-items: center; gap: 12px;">
+            <a href="index.html" class="botao_nav">Início</a>
             <div class="nav-item">
                 <button class="botao_nav">Jogos ▾</button>
                 <div class="dropdown">
+                    <a class="dropdown-item" href="#sons">God of War: Sons of Sparta</a>
                     <a class="dropdown-item" href="#ascension">God of War: Ascension</a>
                     <a class="dropdown-item" href="#chains">God of War: Chains of Olympus</a>
                     <a class="dropdown-item" href="#gow1">God of War (O Primeiro Jogo)</a>
@@ -35,7 +36,7 @@
     </header>
 
     <!-- CAPA -->
-    <div class="overflow">
+    <div class="overflow" style="background-color: aliceblue;">
         <div class="div_centralizar_titulo">
             <div class="texto_titulo">A História de</div>
             <br>
@@ -80,7 +81,7 @@
             e nesse dia o ódio de Kratos pelos Deuses se iniciava….
         </div>
 
-        <div class="secao_titulo">God Of War: Sons of Sparta</div>
+        <div class="secao_titulo" id="sons">God Of War: Sons of Sparta</div>
         <div class="texto_comum">
             <br>
             O jogo começa com Kratos indo dar uma bronca em sua filha Calíope por ter desobedecido sua mãe, Lysandra.
@@ -139,7 +140,7 @@
             Consumido pela culpa após assassinar sua própria família sob influência de Ares, ele vive atormentado por
             lembranças que o perseguem sem descanso. Acorrentado por seus pecados e por juramentos quebrados, Kratos
             vaga sozinho tentando encontrar uma forma de se libertar da dor que carrega na alma.
-                Tudo muda quando as terríveis Fúrias passam a caçá-lo impiedosamente. Criaturas cruéis e manipuladoras,
+            Tudo muda quando as terríveis Fúrias passam a caçá-lo impiedosamente. Criaturas cruéis e manipuladoras,
             elas desejam transformar Kratos novamente em um servo obediente dos deuses. Mas, pela primeira vez, o
             guerreiro decide enfrentar não apenas monstros, mas também o próprio passado.
             <br><br>
@@ -233,7 +234,7 @@
             <br><br>
             Durante uma batalha, Zeus retira os poderes divinos de Kratos e o mata, enviando-o ao submundo. Porém,
             recusando aceitar seu destino, Kratos com a intervenção de Gaia, consegue retornar do submundo
-             e passa a buscar uma maneira de alterar o próprio tempo para impedir sua traição e destruir Zeus.
+            e passa a buscar uma maneira de alterar o próprio tempo para impedir sua traição e destruir Zeus.
             <br><br>
             Ao descobrir que Zeus é seu pai e o verdadeiro responsável por grande parte de seu sofrimento, o ódio de
             Kratos finalmente ultrapassa qualquer limite. O guerreiro deixa de buscar apenas vingança pessoal e passa
@@ -258,10 +259,11 @@
             mundo. Pela primeira vez, Kratos abandona a raiva e decide entregar aos humanos o poder da esperança,
             sacrificando a si mesmo para tentar encerrar o ciclo de dor e destruição que marcou toda sua vida.
         </div>
-        <div class="texto_comum">
+
+        <div class="texto_comum" style="margin-top: 60px;">
             <br><br>
             O que achou da história do Fantasma de Esparta? <br>
-            Se gostou do conteudo, faça login para ter acesso a mais conteudos como este
+            Se gostou do conteúdo, faça login para ter acesso a mais conteúdos como este.
         </div>
     </div>
 
@@ -281,5 +283,4 @@
     </script>
 
 </body>
-
 </html>
