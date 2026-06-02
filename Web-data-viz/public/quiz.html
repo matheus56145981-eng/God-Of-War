@@ -1,0 +1,334 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quiz — God Of War</title>
+    <link rel="stylesheet" href="css/quiz.css">
+</head>
+<body>
+
+    <!-- HEADER IDÊNTICO AO INDEX -->
+    <header class="header_style">
+        <div style="display:flex; gap:12px; align-items:center;">
+            <a href="cadastro.html" class="botao_nav">Cadastro</a>
+            <a href="login.html" class="botao_nav">Login</a>
+        </div>
+
+        <div class="div_logo">God Of War</div>
+
+        <div style="display: flex; align-items: center; gap: 12px;">
+            <a href="index.html" class="botao_nav">Início</a>
+            <div class="nav-item">
+                <button class="botao_nav">Jogos ▾</button>
+                <div class="dropdown">
+                    <a class="dropdown-item" href="index.html#sons">God of War: Sons of Sparta</a>
+                    <a class="dropdown-item" href="index.html#ascension">God of War: Ascension</a>
+                    <a class="dropdown-item" href="index.html#chains">God of War: Chains of Olympus</a>
+                    <a class="dropdown-item" href="index.html#gow1">God of War (O Primeiro Jogo)</a>
+                    <a class="dropdown-item" href="index.html#ghost">God of War: Ghost of Sparta</a>
+                    <a class="dropdown-item" href="index.html#betrayal">God of War: Betrayal</a>
+                    <a class="dropdown-item" href="index.html#gow2">God of War II</a>
+                    <a class="dropdown-item" href="index.html#gow3">God of War III</a>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- CONTEÚDO DO QUIZ -->
+    <div class="quiz-page">
+        <div class="quiz-titulo">QUIZ</div>
+        <div class="quiz-subtitulo">Teste seus conhecimentos sobre a franquia</div>
+
+        <div class="quiz-container" id="quizContainer">
+
+            <!-- TELA INICIAL -->
+            <div class="tela-inicial" id="telaInicial">
+                <p>Você conhece bem a história do <strong style="color:#cc2200;">Fantasma de Esparta</strong>?<br>
+                Responda 7 questões e descubra o quanto sabe sobre a mitologia grega de God of War.</p>
+                <button class="btn-quiz btn-iniciar" onclick="iniciarQuiz()">INICIAR QUIZ</button>
+            </div>
+
+            <!-- JOGO (oculto inicialmente) -->
+            <div id="telaJogo" style="display:none; width:100%; display:none; flex-direction:column; gap:24px;">
+
+                <!-- Placar -->
+                <div class="placar">
+                    <div class="placar-item placar-acertos">
+                        Acertos<span id="spanCertas">0</span>
+                    </div>
+                    <div class="placar-item placar-erros">
+                        Erros<span id="spanErradas">0</span>
+                    </div>
+                </div>
+
+                <!-- Progresso -->
+                <div style="width:100%;">
+                    <div class="progresso-label" id="progressoLabel">Questão 1 de 7</div>
+                    <div class="barra-progresso" style="margin-top:8px;">
+                        <div class="barra-progresso-fill" id="barraFill"></div>
+                    </div>
+                </div>
+
+                <!-- Questão -->
+                <div class="questao-box">
+                    <div class="questao-numero" id="questaoNumero">QUESTÃO 1</div>
+                    <div class="questao-texto" id="spanQuestaoExibida"></div>
+                </div>
+
+                <!-- Alternativas -->
+                <div class="alternativas" id="alternativas">
+                    <label class="alternativa-label" id="labelOpcaoUm">
+                        <input type="radio" name="option" value="alternativaA" id="primeiraOpcao">
+                        <span id="textoOpcaoUm"></span>
+                    </label>
+                    <label class="alternativa-label" id="labelOpcaoDois">
+                        <input type="radio" name="option" value="alternativaB" id="segundaOpcao">
+                        <span id="textoOpcaoDois"></span>
+                    </label>
+                    <label class="alternativa-label" id="labelOpcaoTres">
+                        <input type="radio" name="option" value="alternativaC" id="terceiraOpcao">
+                        <span id="textoOpcaoTres"></span>
+                    </label>
+                    <label class="alternativa-label" id="labelOpcaoQuatro">
+                        <input type="radio" name="option" value="alternativaD" id="quartaOpcao">
+                        <span id="textoOpcaoQuatro"></span>
+                    </label>
+                </div>
+
+                <!-- Botões -->
+                <div class="botoes">
+                    <button class="btn-quiz" onclick="submeter()" id="btnSubmeter">Submeter resposta</button>
+                    <button class="btn-quiz" onclick="avancar()" id="btnProx" disabled>Avançar para próxima questão</button>
+                    <button class="btn-quiz" onclick="tentarNovamente()" id="btnTentarNovamente" disabled>Tentar novamente</button>
+                </div>
+            </div>
+
+            <!-- TELA FINAL (oculta inicialmente) -->
+            <div id="telaFinal" style="display:none; width:100%;">
+                <div class="resultado-final">
+                    <div class="resultado-label">Pontuação Final</div>
+                    <div class="resultado-pontuacao" id="spanPontuacaoFinal">—</div>
+                    <div class="resultado-label" id="porcentagemLabel"></div>
+                    <div class="resultado-msg" id="msgFinal"></div>
+                    <button class="btn-quiz btn-iniciar" onclick="tentarNovamente()" style="margin-top:10px;">Tentar novamente</button>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+<script>
+    const listaDeQuestoes = [
+        {
+            pergunta: "Quem é o pai de Kratos na franquia?",
+            alternativaA: "Zeus",
+            alternativaB: "Hades",
+            alternativaC: "Poseidon",
+            alternativaD: "Ares",
+            alternativaCorreta: "alternativaA"
+        },
+        {
+            pergunta: "Qual é o nome das lâminas duplas dadas a Kratos por Ares no primeiro jogo?",
+            alternativaA: "Lâminas do Exílio",
+            alternativaB: "Lâminas do Caos",
+            alternativaC: "Lâminas de Atena",
+            alternativaD: "Garras de Hades",
+            alternativaCorreta: "alternativaB"
+        },
+        {
+            pergunta: "De acordo com o enredo de God of War II, qual Titã carrega os pilares do mundo em suas costas?",
+            alternativaA: "Cronos",
+            alternativaB: "Atlas",
+            alternativaC: "Gaia",
+            alternativaD: "Tifão",
+            alternativaCorreta: "alternativaB"
+        },
+        {
+            pergunta: "Qual divindade da sabedoria guia Kratos durante sua jornada de vingança contra o Olimpo?",
+            alternativaA: "Hera",
+            alternativaB: "Afrodite",
+            alternativaC: "Ártemis",
+            alternativaD: "Atena",
+            alternativaCorreta: "alternativaD"
+        },
+        {
+            pergunta: "Qual desses deuses foi o primeiro grande antagonista que Kratos derrotou no jogo original de 2005?",
+            alternativaA: "Ares",
+            alternativaB: "Tânatos",
+            alternativaC: "Hélio",
+            alternativaD: "Hermes",
+            alternativaCorreta: "alternativaA"
+        },
+        {
+            pergunta: "Como Kratos escapou do submundo após ser traído e morto por Zeus no início de God of War II?",
+            alternativaA: "Ele usou a Caixa de Pandora",
+            alternativaB: "Ele fez um acordo com Hades",
+            alternativaC: "Ele foi resgatado e guiado pelo Titã Gaia",
+            alternativaD: "Ele derrotou as três Górgonas",
+            alternativaCorreta: "alternativaC"
+        },
+        {
+            pergunta: "Qual é o nome do irmão de Kratos, levado pelos deuses na infância por ter marcas consideradas uma maldição?",
+            alternativaA: "Deimos",
+            alternativaB: "Hércules",
+            alternativaC: "Ceryx",
+            alternativaD: "Perseu",
+            alternativaCorreta: "alternativaA"
+        }
+    ];
+
+    let numeroDaQuestaoAtual = 0;
+    let pontuacaoFinal = 0;
+    let certas = 0;
+    let erradas = 0;
+    const quantidadeDeQuestoes = listaDeQuestoes.length;
+
+    function iniciarQuiz() {
+        document.getElementById('telaInicial').style.display = 'none';
+        const telaJogo = document.getElementById('telaJogo');
+        telaJogo.style.display = 'flex';
+        telaJogo.style.flexDirection = 'column';
+        telaJogo.style.gap = '24px';
+        preencherHTMLcomQuestaoAtual(0);
+        document.getElementById('btnSubmeter').disabled = false;
+        document.getElementById('btnProx').disabled = true;
+        document.getElementById('btnTentarNovamente').disabled = true;
+    }
+
+    function preencherHTMLcomQuestaoAtual(index) {
+        habilitarAlternativas(true);
+        desmarcarRadioButtons();
+        limparCoresAlternativas();
+
+        const q = listaDeQuestoes[index];
+        numeroDaQuestaoAtual = index;
+
+        document.getElementById('questaoNumero').innerHTML = 'QUESTÃO ' + (index + 1);
+        document.getElementById('progressoLabel').innerHTML = 'Questão ' + (index + 1) + ' de ' + quantidadeDeQuestoes;
+        document.getElementById('barraFill').style.width = ((index / quantidadeDeQuestoes) * 100) + '%';
+        document.getElementById('spanQuestaoExibida').innerHTML = q.pergunta;
+        document.getElementById('textoOpcaoUm').innerHTML   = q.alternativaA;
+        document.getElementById('textoOpcaoDois').innerHTML  = q.alternativaB;
+        document.getElementById('textoOpcaoTres').innerHTML  = q.alternativaC;
+        document.getElementById('textoOpcaoQuatro').innerHTML = q.alternativaD;
+    }
+
+    function submeter() {
+        const options = document.getElementsByName('option');
+        let hasChecked = false;
+        for (let i = 0; i < options.length; i++) {
+            if (options[i].checked) { hasChecked = true; break; }
+        }
+        if (!hasChecked) {
+            alert('Escolha uma alternativa antes de submeter.');
+            return;
+        }
+
+        document.getElementById('btnSubmeter').disabled = true;
+        document.getElementById('btnProx').disabled = false;
+        habilitarAlternativas(false);
+        checarResposta();
+    }
+
+    function habilitarAlternativas(habilitar) {
+        const ids = ['primeiraOpcao','segundaOpcao','terceiraOpcao','quartaOpcao'];
+        const labelIds = ['labelOpcaoUm','labelOpcaoDois','labelOpcaoTres','labelOpcaoQuatro'];
+        ids.forEach((id, i) => {
+            document.getElementById(id).disabled = !habilitar;
+            if (!habilitar) {
+                document.getElementById(labelIds[i]).classList.add('disabled-label');
+            } else {
+                document.getElementById(labelIds[i]).classList.remove('disabled-label');
+            }
+        });
+    }
+
+    function checarResposta() {
+        const q = listaDeQuestoes[numeroDaQuestaoAtual];
+        const respostaCorreta = q.alternativaCorreta;
+        const options = document.getElementsByName('option');
+
+        const mapaValorParaLabel = {
+            alternativaA: 'labelOpcaoUm',
+            alternativaB: 'labelOpcaoDois',
+            alternativaC: 'labelOpcaoTres',
+            alternativaD: 'labelOpcaoQuatro'
+        };
+
+        var certa = 0;
+        var pergunta = q;
+        var usuario = sessionStorage.getItemById(usuarioLogado);
+
+        options.forEach(option => {
+            if (option.checked) {
+                if (option.value === respostaCorreta) {
+                    document.getElementById(mapaValorParaLabel[option.value]).classList.add('correta');
+                    pontuacaoFinal++;
+                    certas++;
+                    certa = 1;
+                    document.getElementById('spanCertas').innerHTML = certas;
+                } else {
+                    document.getElementById(mapaValorParaLabel[option.value]).classList.add('errada');
+                    document.getElementById(mapaValorParaLabel[respostaCorreta]).classList.add('correta');
+                    erradas++;
+                    document.getElementById('spanErradas').innerHTML = erradas;
+                }
+            }
+        });
+        registrarResposta(usuario, pergunta, certa)
+        numeroDaQuestaoAtual++;
+    }
+
+    function avancar() {
+        document.getElementById('btnProx').disabled = true;
+        document.getElementById('btnSubmeter').disabled = false;
+
+        if (numeroDaQuestaoAtual < quantidadeDeQuestoes) {
+            preencherHTMLcomQuestaoAtual(numeroDaQuestaoAtual);
+        } else {
+            finalizarJogo();
+        }
+    }
+
+    function limparCoresAlternativas() {
+        ['labelOpcaoUm','labelOpcaoDois','labelOpcaoTres','labelOpcaoQuatro'].forEach(id => {
+            const el = document.getElementById(id);
+            el.classList.remove('correta','errada');
+        });
+    }
+
+    function desmarcarRadioButtons() {
+        document.getElementsByName('option').forEach(o => o.checked = false);
+    }
+
+    function finalizarJogo() {
+        document.getElementById('telaJogo').style.display = 'none';
+        document.getElementById('telaFinal').style.display = 'block';
+
+        const pct = pontuacaoFinal / quantidadeDeQuestoes;
+        document.getElementById('spanPontuacaoFinal').innerHTML = pontuacaoFinal + '<span style="font-size:32px;color:#d4a070;"> / ' + quantidadeDeQuestoes + '</span>';
+        document.getElementById('porcentagemLabel').innerHTML = Math.round(pct * 100) + '% de acertos';
+
+        let msg = '', cls = '';
+        if (pct <= 0.3) {
+            msg = 'Parece que você não estudou...'; cls = 'danger';
+        } else if (pct < 0.9) {
+            msg = 'Pode melhorar na próxima, hein!'; cls = 'warning';
+        } else {
+            msg = 'Uau, parabéns! Você é um verdadeiro espartano!'; cls = 'success';
+        }
+
+        const msgEl = document.getElementById('msgFinal');
+        msgEl.innerHTML = msg;
+        msgEl.className = 'resultado-msg ' + cls;
+
+        document.getElementById('barraFill').style.width = '100%';
+    }
+
+    function tentarNovamente() {
+        window.location.reload();
+    }
+</script>
+</body>
+</html>
