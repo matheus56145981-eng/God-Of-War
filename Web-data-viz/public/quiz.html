@@ -276,6 +276,16 @@
                 }
             }
         });
+
+        fetch("/respostas/registrarResposta", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          usuarioServer: usuario,
+          perguntaServer: pergunta,
+          certaServer: certa,
+        })
+      })
         registrarResposta(usuario, pergunta, certa)
         numeroDaQuestaoAtual++;
     }
